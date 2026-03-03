@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens ──────────────────────────────────────────────────────── */
+:root {
+  --paper:          #f7f4ee;
+  --paper-dark:     #ede9e0;
+  --paper-fold:     #d6d0c3;
+  --ink:            #1c1712;
+  --ink-mid:        #3d3730;
+  --ink-light:      #6b6055;
+  --ink-faint:      #9c9286;
+  --accent:         #2a5caa;
+  --accent-light:   #5b8ad4;
+  --accent-warm:    #c9782a;
+  --accent-green:   #2d7a3a;
+  --accent-red:     #b33030;
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Paper grain overlay ─────────────────────────────────────────────────
+   Faint noise sits above all content via z-index: 9998.
+   pointer-events: none so it never blocks interaction.
+────────────────────────────────────────────────────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ── Sketch animations ────────────────────────────────────────────────── */
+
+@keyframes panel-appear {
+  0%   { opacity: 0; transform: scale(0.96) rotate(-0.4deg); }
+  60%  { transform: scale(1.015) rotate(0.15deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes bubble-pop {
+  0%   { opacity: 0; transform: scale(0.72); }
+  65%  { transform: scale(1.07); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes stamp-in {
+  0%   { opacity: 0; transform: scale(1.5)  rotate(var(--stamp-r, -3deg)); }
+  55%  { opacity: 1; transform: scale(0.94) rotate(var(--stamp-r, -3deg)); }
+  100% { opacity: 1; transform: scale(1)    rotate(var(--stamp-r, -3deg)); }
+}
+
+@keyframes jitter {
+  0%, 100% { transform: translate(0, 0); }
+  20%       { transform: translate(-0.5px,  0.4px); }
+  40%       { transform: translate( 0.4px, -0.5px); }
+  60%       { transform: translate(-0.3px, -0.4px); }
+  80%       { transform: translate( 0.5px,  0.3px); }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-0.6deg) scale(1); }
+  50%       { transform: rotate( 0.6deg) scale(1.03); }
+}
+
+@keyframes sound-pulse {
+  0%, 100% { r: 14; opacity: 0.7; }
+  50%       { r: 18; opacity: 0.3; }
+}
+
+/* ── Utility animation classes ───────────────────────────────────────── */
+
+.sketch-appear {
+  animation: panel-appear 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.bubble-pop {
+  animation: bubble-pop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.stamp-in {
+  animation: stamp-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.jitter-idle {
+  animation: jitter 8s ease-in-out infinite;
+}
+
+.wobble-hover:hover {
+  animation: wobble 0.55s ease-in-out;
+}
+
+/* ── Webtoon panel strip ──────────────────────────────────────────────── */
+.panel-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

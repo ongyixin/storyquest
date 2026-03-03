@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build
+.next/
+out/
+dist/
+
+# Env — NEVER commit secrets
+.env
+.env.local
+.env.*.local
+
+# Convex generated (safe to regenerate; do not commit to avoid merge conflicts)
+convex/_generated/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Embedded repos
+storyquest/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Cache
+.cache/
+.turbo/
+.parcel-cache/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Project files
+PLAN.md
+UML.md
